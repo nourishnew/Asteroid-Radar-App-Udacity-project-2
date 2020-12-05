@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
+import com.udacity.asteroidradar.main.ImageApiStatus
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -42,11 +43,21 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
     textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
 
-@BindingAdapter("ImageOfTheDay")
-fun bindImageOfTheDay(imageView: ImageView, url:String){
-    url?.let {
-        val imgUri = url.toUri().buildUpon().scheme("https").build()
-        Picasso.get().load(imgUri).placeholder(R.drawable.placeholder_picture_of_day)
-                .into(imageView);
+@BindingAdapter("url", "status")
+fun bindImageOfTheDay(imageView: ImageView, url:String,status:ImageApiStatus){
+    when (status) {
+        ImageApiStatus.LOADING -> {
+            imageView.setImageResource(R.drawable.loading_animation)
+        }
+        ImageApiStatus.ERROR -> {
+            imageView.setImageResource(R.drawable.ic_connection_error)
+        }
+        ImageApiStatus.DONE -> {
+            url?.let {
+                val imgUri = url.toUri().buildUpon().scheme("https").build()
+                Picasso.get().load(imgUri).placeholder(R.drawable.placeholder_picture_of_day)
+                        .into(imageView);
+            }
+        }
     }
 }

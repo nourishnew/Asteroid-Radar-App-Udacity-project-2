@@ -9,6 +9,7 @@ import com.udacity.asteroidradar.Database.getDatabase
 import com.udacity.asteroidradar.Repository.AsteroidRepository
 import com.udacity.asteroidradar.api.ImageApi
 import kotlinx.coroutines.launch
+enum class ImageApiStatus { LOADING, ERROR, DONE }
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -16,9 +17,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val navigateToSelectedAsteroid: LiveData<Asteroid>
         get() = _navigateToSelectedAsteroid
 
-    val _image= MutableLiveData<Image>()
-    val image:LiveData<Image>
-    get()= _image
+    private val _status = MutableLiveData<ImageApiStatus>()
+    val status: LiveData<ImageApiStatus>
+        get() = _status
+
+    private val _image = MutableLiveData<Image>()
+    val image: LiveData<Image>
+        get() = _image
 
 
     private val database= getDatabase(application)
@@ -41,11 +46,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
       private fun getImageOfTheDay() {
         viewModelScope.launch {
+            _status.value = ImageApiStatus.LOADING
             try {
                 var result = ImageApi.retrofitService.getImageOfTheDay(Constants.API_KEY)
                 _image.value=result
-                } catch (e: Exception) {
-
+                _status.value = ImageApiStatus.DONE
+            } catch (e: Exception) {
+                _status.value=ImageApiStatus.ERROR
+                _image.value=Image("","","","","","","","")
             }
         }
     }

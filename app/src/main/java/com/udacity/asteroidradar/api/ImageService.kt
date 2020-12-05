@@ -20,7 +20,7 @@ private val retrofitImage= Retrofit.Builder().addConverterFactory(MoshiConverter
         .baseUrl(BASE_URL).build()
 interface ImageService {
 
-    @GET("planetart/apod")
+    @GET("planetary/apod")
     suspend fun getImageOfTheDay(@Query("api_key")key: String): Image
 
 }
