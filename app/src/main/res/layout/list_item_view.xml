@@ -23,7 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
-            android:layout_marginTop="28dp"
+            android:textSize="24sp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@{String.valueOf(asteroid.id)}"
             android:text="@{String.valueOf(asteroid.id)}"
             android:textColor="@color/default_text_color"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +39,8 @@
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-
+            android:layout_marginTop="20dp"
+            android:contentDescription="@{asteroid.closeApproachDate}"
             android:text="@{asteroid.closeApproachDate}"
             android:textColor="@color/default_text_color"
             app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -48,9 +50,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="83dp"
-            android:layout_height="85dp"
-
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@{asteroid.potentiallyHazardous ? @string/potentially_hazardous_asteroid_image : @string/not_hazardous_asteroid_image}"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="28dp"
             app:layout_constraintEnd_toEndOf="parent"

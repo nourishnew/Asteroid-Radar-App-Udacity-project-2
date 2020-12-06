@@ -47,7 +47,7 @@ private fun setupRecurringWork(){
     val repeatingRequest= PeriodicWorkRequestBuilder<AsteroidWork>(
             1,
             TimeUnit.DAYS
-    ).build()
+    ).setConstraints(constraint).build()
 
     WorkManager.getInstance().enqueueUniquePeriodicWork(
             AsteroidWork.WORK_NAME,

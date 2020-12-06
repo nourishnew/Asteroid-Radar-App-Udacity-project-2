@@ -44,17 +44,9 @@ class MainFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
-        setHasOptionsMenu(true)
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_overflow_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return true
-    }
 }

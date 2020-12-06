@@ -44,7 +44,7 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
 }
 
 @BindingAdapter("url", "status")
-fun bindImageOfTheDay(imageView: ImageView, url:String,status:ImageApiStatus){
+fun bindImageOfTheDay(imageView: ImageView, url:String?,status:ImageApiStatus?){
     when (status) {
         ImageApiStatus.LOADING -> {
             imageView.setImageResource(R.drawable.loading_animation)
